@@ -87,6 +87,6 @@ export const EmailEnvelope = ({ goBack }) => {
       <button type="submit">Send</button>
     </form>,
 
-    document.getElementById("email")
+    document.getElementById("emailandphone")
   );
 };

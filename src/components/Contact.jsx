@@ -1,25 +1,32 @@
 /* eslint-disable react/jsx-no-target-blank */
 /* eslint-disable react/jsx-key */
-import { useEffect, useRef, useState } from "react";
+import {  useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faLinkedin,
   faGithub,
-  faInstagram,
-} from "@fortawesome/free-brands-svg-icons";
-import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
-import { EmailEnvelope } from "../Portals/EmailEnvelope";
-//import { useNavigate } from "react-router-dom";
 
-const contactIcons = [faLinkedin, faGithub, faEnvelope];
+} from "@fortawesome/free-brands-svg-icons";
+import { faEnvelope, faPhone  } from "@fortawesome/free-solid-svg-icons";
+import { EmailEnvelope } from "../Portals/EmailEnvelope";
+import { PhoneContact } from "../Portals/PhoneContact";
+
+
+const contactIcons = [faLinkedin, faGithub, faEnvelope, faPhone];
 
 export const Contact = () => {
   const [showEnvelope, setShowEnvelope] = useState(false);
+  const [showPhone, setShowPhone] = useState(false)
 
-  // Click handler for the envelope icon
+
   const handleEnvelopeClick = (e) => {
-    e.preventDefault(); // Prevent the default link behavior
+    e.preventDefault();
     setShowEnvelope(true);
+  };
+
+  const handlePhoneClick = (e) => {
+    e.preventDefault();
+    setShowPhone(true);
   };
 
   return (
@@ -33,11 +40,17 @@ export const Contact = () => {
               : icon === faGithub
               ? "https://github.com/KostaRajic"
               : icon === faEnvelope
-              ? "mailto:your-email@example.com" // Adjust with your email
+              ? "mailto:your-email@example.com"
+              : icon === faPhone
+              ? "tel:+1234567890" 
               : ""
           }
-          target={icon === faEnvelope ? undefined : "_blank"} // Open in new tab for LinkedIn, GitHub
-          onClick={icon === faEnvelope ? handleEnvelopeClick : undefined} // Only attach onClick to the envelope icon
+          target={icon === faEnvelope ? undefined : "_blank"}
+          onClick={ icon === faEnvelope
+            ? handleEnvelopeClick
+            : icon === faPhone
+            ? handlePhoneClick
+            : undefined}
         >
           <span>
             <FontAwesomeIcon
@@ -48,6 +61,7 @@ export const Contact = () => {
         </a>
       ))}
       {showEnvelope && <EmailEnvelope goBack={() => setShowEnvelope(false)} />}
+      {showPhone && <PhoneContact goBack={() => setShowPhone(false)} />}
     </p>
   );
 };
