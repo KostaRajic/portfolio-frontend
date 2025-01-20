@@ -20,7 +20,7 @@ export const EmailEnvelope = ({ goBack }) => {
     e.preventDefault();
   
     try {
-      const response = await fetch('https://portfolio-server-nu-one.vercel.app/sendMail', {
+      const response = await fetch('http://localhost:5001/sendMail', {
         method: 'POST',
         body: JSON.stringify(emailForm),
         headers: {
